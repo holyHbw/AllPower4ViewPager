@@ -36,6 +36,8 @@ public class AllPower4ViewPager extends RelativeLayout {
 
     private static final String TAG = "HBW";
 
+    private LastPageStateListener mLastPageStateListener;
+
     private final int DEFAULT_HEIGHT = 30;
     private final int DEFAULT_WIDTH = 30;
     private final int DEFAULT_LEFT_MARGIN = 50;
@@ -76,6 +78,11 @@ public class AllPower4ViewPager extends RelativeLayout {
 
             if (mRadioGroup != null)
                 mRadioGroup.check(mRadioGroupItems[i]);
+
+            if (i == mPageCount-1)
+                mLastPageStateListener.lastPageSelected(i);
+            else
+                mLastPageStateListener.lastPageUnSelected(i);
 
         }
 
@@ -195,8 +202,11 @@ public class AllPower4ViewPager extends RelativeLayout {
      * @param layoutViews
      * @return
      */
-    public AllPower4ViewPager setDataSrc(Context context, List<View> layoutViews)
+    public AllPower4ViewPager setDataSrc(Context context, List<View> layoutViews, LastPageStateListener listener)
     {
+        if (listener != null)
+            mLastPageStateListener = listener;
+
         mContext = context;
         initView();
         mPageCount = layoutViews.size();
@@ -209,8 +219,11 @@ public class AllPower4ViewPager extends RelativeLayout {
         return this;
     }
 
-    public AllPower4ViewPager setDataSrc(Context context, final int[] resIds)
+    public AllPower4ViewPager setDataSrc(Context context, final int[] resIds, LastPageStateListener listener)
     {
+        if (listener != null)
+            mLastPageStateListener = listener;
+
         mContext = context;
         mPageCount = resIds.length;
         initView();
@@ -220,8 +233,11 @@ public class AllPower4ViewPager extends RelativeLayout {
         return this;
     }
 
-    public AllPower4ViewPager setDataSrc(Context context, String[] urls)
+    public AllPower4ViewPager setDataSrc(Context context, String[] urls, LastPageStateListener listener)
     {
+        if (listener != null)
+            mLastPageStateListener = listener;
+
         mContext = context;
         mPageCount = urls.length;
         initView();
@@ -297,6 +313,14 @@ public class AllPower4ViewPager extends RelativeLayout {
             }
         });
     }
+
+
+    public static interface LastPageStateListener{
+
+        public void lastPageSelected(int currentIndex);
+        public void lastPageUnSelected(int currentIndex);
+    }
+
 
     /**
      * there is no need to invoke the functions below manually
