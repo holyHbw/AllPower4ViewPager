@@ -58,9 +58,11 @@
       }
       
 2.在“app/build.gradle”中添加依赖：
+
       implementation 'com.github.holyHbw:AllPower4ViewPager:V1.0.1'
       
 3.在布局文件中使用：（所有属性自己定义，以下为例子）
+
        <cn.jhc.www.library.AllPower4ViewPager
         android:id="@+id/ovp1"
         android:layout_width="match_parent"
@@ -68,8 +70,11 @@
         android:layout_alignParentBottom="true" />
       
 4.在对应的Java代码中使用：
+
         AllPower4ViewPager ovp1 = = findViewById(R.id.ovp1);
+        
         int[] items={R.drawable.p1,R.drawable.p2,R.drawable.p1};  //创建数据源
+        
         ovp1.setDataSrc(this,items,null).show(); //将数据源传给万能ViewPager并调用show()方法显示到界面上
         
 5.其他具体使用模式参看代码注释
